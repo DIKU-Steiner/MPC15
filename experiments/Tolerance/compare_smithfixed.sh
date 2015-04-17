@@ -1,19 +1,19 @@
 #!/bin/bash
 
-for f in Smith_Martin_t0.00001/*txt; do 
+for f in SmithFixed_t0.00001/*txt; do 
 	basename=${f##*/}
 
-	smithm1Time=`grep Took Smith_Martin_t0.1/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f5`;
-	smithm2Time=`grep Took Smith_Martin_t0.01/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f5`;
-	smithm3Time=`grep Took Smith_Martin_t0.001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f5`;
-	smithm4Time=`grep Took Smith_Martin_t0.0001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f5`;
-	smithm5Time=`grep Took Smith_Martin_t0.00001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f5`;
+	smithm1Time=`grep Took SmithFixed_t0.1/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f5`;
+	smithm2Time=`grep Took SmithFixed_t0.01/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f5`;
+	smithm3Time=`grep Took SmithFixed_t0.001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f5`;
+	smithm4Time=`grep Took SmithFixed_t0.0001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f5`;
+	smithm5Time=`grep Took SmithFixed_t0.00001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f5`;
 
-	smithm1Len=`grep record Smith_Martin_t0.1/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
-	smithm2Len=`grep record Smith_Martin_t0.01/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
-	smithm3Len=`grep record Smith_Martin_t0.001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
-	smithm4Len=`grep record Smith_Martin_t0.0001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
-	smithm5Len=`grep record Smith_Martin_t0.00001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
+	smithm1Len=`grep record SmithFixed_t0.1/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
+	smithm2Len=`grep record SmithFixed_t0.01/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
+	smithm3Len=`grep record SmithFixed_t0.001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
+	smithm4Len=`grep record SmithFixed_t0.0001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
+	smithm5Len=`grep record SmithFixed_t0.00001/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
 
 	diff1=$(echo "scale=4;$smithm1Len-$smithm5Len" | bc)
 	diff2=$(echo "scale=4;$smithm2Len-$smithm5Len" | bc)

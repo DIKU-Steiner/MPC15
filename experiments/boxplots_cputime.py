@@ -120,7 +120,7 @@ def collect_SmithStar_DFS(pattern):
 
     return ret
 
-def collect_SmithMartin(pattern):
+def collect_SmithFixed(pattern):
     ret = {"succ": 0, "fail": 0, "geomean": 0, "arithmean": 0}
     times = []
     minLength = 100000000.0
@@ -134,7 +134,8 @@ def collect_SmithMartin(pattern):
                 length = 10000000.0
                 for l in content: 
                     if "length" in l:
-                        length = float(l.split(" ")[3])
+                        tokens = l.split(" ")
+                        length = float(tokens[-1])
                 minLength = min(minLength, length)
             else:
                 ret["fail"] += 1
@@ -163,10 +164,10 @@ def collect_carioca():
     ret = []
     for d in range(3,6):
         for n in range(11,21):
-            for meth in ["Branch", "SmithStar", "Smith_Martin"]:
+            for meth in ["Branch", "SmithStar", "SmithFixed"]:
                 if meth=="Branch":          resDict = collect_Branch( "Carioca/%s/carioca_%d_%d_*.txt"%(meth,d,n) )
                 if meth=="SmithStar":       resDict = collect_SmithStar( "Carioca/%s/carioca_%d_%d_*.txt"%(meth,d,n) )
-                if meth=="Smith_Martin":    resDict = collect_SmithMartin( "Carioca/%s/carioca_%d_%d_*.txt"%(meth,d,n) )
+                if meth=="SmithFixed":    resDict = collect_SmithFixed( "Carioca/%s/carioca_%d_%d_*.txt"%(meth,d,n) )
                 ret.append( {"name":"carioca", "d": d, "n": n,"method":meth,  "results":resDict} )
 
     return ret
@@ -175,10 +176,10 @@ def collect_Cube():
     ret = []
     for d in range(2,6):
         for n in range(10,16):
-            for meth in ["Branch", "SmithStar", "Smith_Martin", "SmithStar_DFS"]:
+            for meth in ["Branch", "SmithStar", "SmithFixed", "SmithStar_DFS"]:
                 if meth=="Branch":          resDict = collect_Branch(       "Cube/%s/cube_n%d_d%d_*.txt"%(meth,n,d) )
                 if meth=="SmithStar":       resDict = collect_SmithStar(    "Cube/%s/cube_n%d_d%d_*.txt"%(meth,n,d) )
-                if meth=="Smith_Martin":    resDict = collect_SmithMartin(  "Cube/%s/cube_n%d_d%d_*.txt"%(meth,n,d) )
+                if meth=="SmithFixed":    resDict = collect_SmithFixed(  "Cube/%s/cube_n%d_d%d_*.txt"%(meth,n,d) )
                 if meth=="SmithStar_DFS":   resDict = collect_SmithStar_DFS("Cube/%s/cube_n%d_d%d_*.txt"%(meth,n,d) )
                 ret.append( {"name":"cube", "d": d, "n": n, "method":meth, "results":resDict} )
 
@@ -188,10 +189,10 @@ def collect_Iowa():
     ret = []
     for d in range(3,6):
         n = 10
-        for meth in ["Branch", "SmithStar", "Smith_Martin"]:
+        for meth in ["Branch", "SmithStar", "SmithFixed"]:
             if meth=="Branch":          resDict = collect_Branch(       "Iowa05/%s/inst%dx%d_*.txt"%(meth,n,d) )
             if meth=="SmithStar":       resDict = collect_SmithStar(    "Iowa05/%s/inst%dx%d_*.txt"%(meth,n,d) )
-            if meth=="Smith_Martin":    resDict = collect_SmithMartin(  "Iowa05/%s/inst%dx%d_*.txt"%(meth,n,d) )
+            if meth=="SmithFixed":    resDict = collect_SmithFixed(  "Iowa05/%s/inst%dx%d_*.txt"%(meth,n,d) )
             ret.append( {"name":"Iowa05", "d": d, "n": n, "method":meth, "results":resDict} )
 
     return ret
@@ -200,10 +201,10 @@ def collect_Sausage():
     ret = []
     for d in range(2,6):
         for n in range(10,16):
-            for meth in ["Branch", "SmithStar", "Smith_Martin"]:
+            for meth in ["Branch", "SmithStar", "SmithFixed"]:
                 if meth=="Branch":          resDict = collect_Branch(       "Sausage/%s/sausage_n%d_d%d_*.txt"%(meth,n,d) )
                 if meth=="SmithStar":       resDict = collect_SmithStar(    "Sausage/%s/sausage_n%d_d%d_*.txt"%(meth,n,d) )
-                if meth=="Smith_Martin":    resDict = collect_SmithMartin(  "Sausage/%s/sausage_n%d_d%d_*.txt"%(meth,n,d) )
+                if meth=="SmithFixed":    resDict = collect_SmithFixed(  "Sausage/%s/sausage_n%d_d%d_*.txt"%(meth,n,d) )
                 ret.append( {"name":"Sausage", "d": d, "n": n, "method":meth, "results":resDict} )
 
     return ret
@@ -212,10 +213,10 @@ def collect_Shell():
     ret = []
     for d in range(2,6):
         for n in range(10,16):
-            for meth in ["Branch", "SmithStar", "Smith_Martin", "SmithStar_DFS"]:
+            for meth in ["Branch", "SmithStar", "SmithFixed", "SmithStar_DFS"]:
                 if meth=="Branch":          resDict = collect_Branch(       "Shell/%s/shell_n%d_d%d_*.txt"%(meth,n,d) )
                 if meth=="SmithStar":       resDict = collect_SmithStar(    "Shell/%s/shell_n%d_d%d_*.txt"%(meth,n,d) )
-                if meth=="Smith_Martin":    resDict = collect_SmithMartin(  "Shell/%s/shell_n%d_d%d_*.txt"%(meth,n,d) )
+                if meth=="SmithFixed":    resDict = collect_SmithFixed(  "Shell/%s/shell_n%d_d%d_*.txt"%(meth,n,d) )
                 if meth=="SmithStar_DFS":   resDict = collect_SmithStar_DFS("Shell/%s/shell_n%d_d%d_*.txt"%(meth,n,d) )
                 ret.append( {"name":"Shell", "d": d, "n": n, "method":meth, "results":resDict} )
 
@@ -224,16 +225,16 @@ def collect_Shell():
 def collect_Smith():
     ret = []
     for d in range(4,7):
-        for meth in ["Branch", "SmithStar", "Smith_Martin"]:
+        for meth in ["Branch", "SmithStar", "SmithFixed"]:
             if meth=="Branch":          resDict = collect_Branch(       "Smith/%s/noctha_%d_*.txt"%(meth,d) )
             if meth=="SmithStar":       resDict = collect_SmithStar(    "Smith/%s/noctha_%d_*.txt"%(meth,d) )
-            if meth=="Smith_Martin":    resDict = collect_SmithMartin(  "Smith/%s/noctha_%d_*.txt"%(meth,d) )
+            if meth=="SmithFixed":    resDict = collect_SmithFixed(  "Smith/%s/noctha_%d_*.txt"%(meth,d) )
             ret.append( {"name":"noctha", "d": d, "n": 2*d, "method":meth, "results":resDict} )
     for d in range(3,9):
-        for meth in ["Branch", "SmithStar", "Smith_Martin"]:
+        for meth in ["Branch", "SmithStar", "SmithFixed"]:
             if meth=="Branch":          resDict = collect_Branch(       "Smith/%s/nsimp_%d_*.txt"%(meth,d) )
             if meth=="SmithStar":       resDict = collect_SmithStar(    "Smith/%s/nsimp_%d_*.txt"%(meth,d) )
-            if meth=="Smith_Martin":    resDict = collect_SmithMartin(  "Smith/%s/nsimp_%d_*.txt"%(meth,d) )
+            if meth=="SmithFixed":    resDict = collect_SmithFixed(  "Smith/%s/nsimp_%d_*.txt"%(meth,d) )
             ret.append( {"name":"nsimp", "d": d, "n": d+1, "method":meth, "results":resDict} )
 
     return ret
@@ -242,10 +243,10 @@ def collect_Solids():
     ret = []
     vertexMap = {'tetrahedron': 4, 'octahedron': 6, 'icosahedron':12, 'dodecahedron': 20, 'cube': 8}
     for solid in vertexMap:
-        for meth in ["Branch", "SmithStar", "Smith_Martin"]:
+        for meth in ["Branch", "SmithStar", "SmithFixed"]:
             if meth=="Branch":          resDict = collect_Branch(       "Solids/%s/%s.txt"%(meth,solid) )
             if meth=="SmithStar":       resDict = collect_SmithStar(    "Solids/%s/%s.txt"%(meth,solid) )
-            if meth=="Smith_Martin":    resDict = collect_SmithMartin(  "Solids/%s/%s.txt"%(meth,solid) )
+            if meth=="SmithFixed":    resDict = collect_SmithFixed(  "Solids/%s/%s.txt"%(meth,solid) )
             ret.append( {"name":solid, "d": 3, "n": vertexMap[solid], "method":meth, "results":resDict} )
 
     return ret
@@ -256,7 +257,7 @@ def plot_NvsTime_boxplot(data, dim=2):
             ("Branch",       "#3349a1", "#828db5"), 
             #("SmithStar",    "#7c8929", "#b3bb7c"),
             ("SmithStar_DFS", "#7c8929", "#b3bb7c"),
-            ("Smith_Martin", "#83387d", "#ab7fa8")
+            ("SmithFixed", "#83387d", "#ab7fa8")
             #("SmithStar_DFS","#834a38", "#c49f79"),
             ]
 
@@ -367,16 +368,16 @@ def plot_NvsTime_boxplot(data, dim=2):
     #plt.xlim(-1,len(pdict['results'])*(len(methods)+1))
     plt.xlim(9,15.7)
     plt.ylim(0.01,100000)
-    #plt.show()
-    plt.savefig("plot_nvst_boxplot_d"+str(dim)+"_shell.pdf")
+    plt.show()
+    #plt.savefig("plot_nvst_boxplot_d"+str(dim)+"_shell.pdf")
 
 
 
 #data = collect_Shell()
-#data = collect_Cube()
+data = collect_Cube()
 #for d in [2,3,4,5]:
 #    plot_NvsTime_boxplot(data, dim=d)
-#plot_NvsTime_boxplot(data,dim=4)
+plot_NvsTime_boxplot(data,dim=4)
 
 #results = []
 #results.extend( collect_Cube() )
@@ -414,31 +415,31 @@ def plot_NvsTime_boxplot(data, dim=2):
 #    except TypeError as e:
 #        print e
 
-#Print command for single-seed results
-results = []
-results.extend( collect_Sausage() )
-results.extend( collect_Smith() )
-results.extend( collect_Solids() )
-import collections
-tableDict = collections.OrderedDict([])
-for resDict in results:
-    entry = (resDict['name'], resDict['d'], resDict['n'])
-    if not entry in tableDict:
-        tableDict[entry] = {}
-    tableDict[entry][resDict['method']] = resDict['results']['arithmean']
-    if not 'length' in tableDict[entry] or not math.isnan(resDict['results']['minLength']):
-        tableDict[entry]['length'] =  resDict['results']['minLength']
-
-
-for rowEntry in tableDict:
-    print "%s & %d & %d & %.1f & %.1f & %.1f & %.4f \\\\" % (
-            rowEntry[0], 
-            rowEntry[1], 
-            rowEntry[2], 
-            tableDict[rowEntry]['Branch'],
-            tableDict[rowEntry]['SmithStar'],
-            tableDict[rowEntry]['Smith_Martin'],
-            tableDict[rowEntry]['length']
-            )
-
-
+##Print command for single-seed results
+#results = []
+#results.extend( collect_Sausage() )
+#results.extend( collect_Smith() )
+#results.extend( collect_Solids() )
+#import collections
+#tableDict = collections.OrderedDict([])
+#for resDict in results:
+#    entry = (resDict['name'], resDict['d'], resDict['n'])
+#    if not entry in tableDict:
+#        tableDict[entry] = {}
+#    tableDict[entry][resDict['method']] = resDict['results']['arithmean']
+#    if not 'length' in tableDict[entry] or not math.isnan(resDict['results']['minLength']):
+#        tableDict[entry]['length'] =  resDict['results']['minLength']
+#
+#
+#for rowEntry in tableDict:
+#    print "%s & %d & %d & %.1f & %.1f & %.1f & %.4f \\\\" % (
+#            rowEntry[0], 
+#            rowEntry[1], 
+#            rowEntry[2], 
+#            tableDict[rowEntry]['Branch'],
+#            tableDict[rowEntry]['SmithStar'],
+#            tableDict[rowEntry]['SmithFixed'],
+#            tableDict[rowEntry]['length']
+#            )
+#
+#

@@ -232,7 +232,7 @@ int main(int argc, char *argv[])
    * trees found. Best tree's topology-vector is stored in BESTVEC. */
 
 	time_t start_t = clock();
-	int i, j, x, k, m, nc, ct;  REAL q, r; int A[NMAX];
+	int i, j, x, k, m, nc;  REAL q, r; int A[NMAX];
 	INITRAND();
 
 	/* (1) Input */
@@ -279,14 +279,15 @@ int main(int argc, char *argv[])
 		printf("done\n"); fflush(stdout); 
 		
 		time_t t = clock() - start_t;
-		printf ("Took %d clocks = %f seconds.\n",t,((double)t)/CLOCKS_PER_SEC);
+		printf ("Took %ld clocks = %f seconds.\n",t,((double)t)/CLOCKS_PER_SEC);
 		exit(0);
 	}
 
 	/* (2) Preprocessing and initialization */
 	/* Optionally, sort sites in some nice order here. */
 	/* STUB = any upper bound ont the length of the SMT. */
-	STUB = HUGE; k = 1; m = 0; ct = 0; /*  ct counts backtrack iters. Unused at present */
+	STUB = HUGE; k = 1; m = 0; 
+	long int ct = 0; 
 	double stopSecs = 12.0*60.0*60.0;
 
 	DoForever{ /* 3: candidate leaf generation and backtracking */
@@ -295,7 +296,7 @@ int main(int argc, char *argv[])
 			printf("still running (%ld)!\n",ct); fflush(stdout); 
 			time_t t = clock() - start_t;
 			if( ((double)t)/CLOCKS_PER_SEC > stopSecs){
-				printf ("Stopped prematurely after %d clocks = %f seconds.\n",t,((double)t)/CLOCKS_PER_SEC);
+				printf ("Stopped prematurely after %ld clocks = %f seconds.\n",t,((double)t)/CLOCKS_PER_SEC);
 				exit(0);
 			}
 		}
@@ -351,7 +352,7 @@ ITER: /* .. and optimize it until either obviously bad or small error figure hap
 			if (k <= 0) { printf("done\n"); fflush(stdout); 
 				
 				time_t t = clock() - start_t;
-				printf ("Took %d clocks = %f seconds.\n",t,((double)t)/CLOCKS_PER_SEC);
+				printf ("Took %ld clocks = %f seconds.\n",t,((double)t)/CLOCKS_PER_SEC);
 				exit(0); }
 			nc = STACK[m]; m--;
 		}

@@ -7,7 +7,7 @@ for f in Branch/*txt; do
 
 	branchLen=`grep Primal Branch/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f3 | cut -c1-9`;
 
-	smithmLen=`grep record Smith_Martin/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
+	smithmLen=`grep record SmithFixed/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f4 | cut -c1-9`;
 
 	smithsLen=`grep Length Smith_Star/$basename | tail -n 1 | tr -s ' ' | cut -d' ' -f2| cut -c1-9`;
 
