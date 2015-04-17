@@ -2,7 +2,7 @@
 TARGETS = $(subst .stp,.txt,$(subst ../Instances/,,$(wildcard ../Instances/*.stp)))
 
 %.txt: ../Instances/%.stp
-	GenGeoSteiner -stopAfter 86400 -input $^ > $@
+	GenGeoSteiner -method WarrenSmith -brancher Furthest -nodeComparator DepthFirst -stopAfter 86400 -input $^ > $@
 
 all: $(TARGETS)
 

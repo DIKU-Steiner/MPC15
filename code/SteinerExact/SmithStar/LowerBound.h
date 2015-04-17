@@ -5,7 +5,6 @@
 
 class LowerBound{
 public:
-	virtual ~LowerBound();
     virtual double lowerBound(WSNode *node) = 0;
     virtual double getLength(WSNode *node) = 0;
     virtual void printDeg() = 0;

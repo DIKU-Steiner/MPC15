@@ -7,7 +7,6 @@
 
 class Brancher{
 public:
-	virtual ~Brancher();
     virtual void branch(WSNode *n, std::vector<WSNode*> &children)=0;
     virtual WSNode* root()=0;
 };
