@@ -58,6 +58,7 @@ Branch::Branch(vector< geomNd::Point > &sites_, double upperBound, ArgParser &ar
     double mstLen = mst.getLength();
     cout<<"Upper bound ratio: "<<(upperBound/mstLen)<<endl;
 
+	//Parse arguments
 	double tolerance = 0.05; 
 	if(argParser.optionExists("-tolerance")) tolerance = argParser.getOption_double("-tolerance");
     cout<<"Tolerance: "<<(tolerance)<<endl;
@@ -87,7 +88,6 @@ Branch::Branch(vector< geomNd::Point > &sites_, double upperBound, ArgParser &ar
     vector< pair<bitset<MAX_N>, double> > subsets;
     vector< vector< pair<bitset<MAX_N>, double> > > preprocessed;
     if(enablePreprocessing){
-        //int maxWS = argParser.optionExists("-maxWS")?argParser.getOption_int("-maxWS"):8;
         int maxWS = argParser.optionExists("-maxWS")?argParser.getOption_int("-maxWS"):min((N+1)/2,(unsigned int)8);
         preprocessLowerbounds(maxWS, subsets, preprocessed, upperBound);
     }
@@ -116,10 +116,6 @@ Branch::Branch(vector< geomNd::Point > &sites_, double upperBound, ArgParser &ar
     //std::unordered_map<uint64_t,std::unordered_map<uint64_t,double> > lbMap(2000000);
     //std::unordered_map<uint64_t,double> lbMap(2000000);
 
-    //ofstream myfile;
-    //myfile.open ("eqLBs.txt");
-    //myfile<<"#Level lowerBound"<<endl;
-
     //Equilateral point generation phase
     cout<<"Generating equilateral points"<<endl;
     for(uint k=1;k<(N/2);k++){
@@ -144,8 +140,6 @@ Branch::Branch(vector< geomNd::Point > &sites_, double upperBound, ArgParser &ar
 
                     //Dont concatenate if b1 and b2 contain the same terminal
                     if( b1->siteMask & b2->siteMask ) {
-                        //if( topologies[k-l-1][b1].siteMask & topologies[l][b2].siteMask ) {
-                        //cout<<"prune 1"<<endl;
                         continue;
                     }
 
