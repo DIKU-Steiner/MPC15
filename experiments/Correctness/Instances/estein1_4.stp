@@ -1,0 +1,23 @@
+33D32945 STP File, STP Format Version 1.0
+
+SECTION Comments
+Name "estein1_4"
+Problem "Euclidean Steiner Tree Problem"
+Remark "Generated with STPGenerator. 2 dimensions."
+END
+
+SECTION Graph
+Nodes 10
+END
+
+SECTION Coordinates
+DD 1 0.4 0.89
+DD 2 0.7 0.85
+DD 3 0.89 0.6
+DD 4 0.85 0.3
+DD 5 0.6 0.12
+DD 6 0.3 0.16
+DD 7 0.11 0.4
+DD 8 0.15 0.7
+END
+
