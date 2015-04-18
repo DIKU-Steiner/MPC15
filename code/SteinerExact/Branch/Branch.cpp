@@ -350,6 +350,7 @@ Branch::Branch(vector< geomNd::Point > &sites_, double upperBound, ArgParser &ar
     time (&rawtime);
     printf ("Time-stamp: %s", ctime(&rawtime));
 	elapsedSecs = (double(clock()-startTime)/CLOCKS_PER_SEC);
+
     printf ("CPU-time elapsed (in seconds): %.3f\n", elapsedSecs);
 
 #ifdef DIMACS
@@ -378,12 +379,26 @@ Branch::Branch(vector< geomNd::Point > &sites_, double upperBound, ArgParser &ar
 				cout<<"DIMACS E "<<placement.adj[i][j]<<" "<<(i+N)<<endl;
 			}
 		}
-
-
-
 	}
 	cout<<"DIMACS End"<<endl;
 #endif
+
+	//Print Steiner point coordinates and edges
+	cout<<"Steiner point coordinates:"<<endl;
+	for(int i=N;i<(N+N-2);i++){
+		cout<<"point["<<i<<"] =";
+		for(int d=0;d<D;d++)
+			cout<<" "<<placement.points[i][d];
+		cout<<endl;
+	}
+	cout<<"Edges:"<<endl;
+	for(int i=0;i<(N-2);i++){
+		for(int j=0;j<3;j++){
+			if(placement.adj[i][j]<i+N){
+				cout<<placement.adj[i][j]<<" "<<(i+N)<<endl;
+			}
+		}
+	}
 }
 
 double combinationLowerBound(vector< pair<bitset<MAX_N>, double> > &l1, vector< pair<bitset<MAX_N>, double> > &l2, unsigned long mask)
