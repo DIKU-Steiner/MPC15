@@ -1,16 +1,24 @@
 
-OBJECTS = $(subst cpp,o,$(wildcard *.cpp))
-OBJECTS += $(subst cpp,o,$(wildcard */*.cpp))
+# C++ compiler
+GCC = g++
 
-CFLAGS = -std=c++11 -Ofast -DDIMACS
-#CFLAGS = -std=c++11 -g
+# Compiler flags
+CFLAGS = -std=c++11 -Ofast
+#CFLAGS = -std=c++11 -Ofast -DDIMACS 	#Used to output for the DIMACS challenge
+#CFLAGS = -std=c++11 -g					#Used for debugging
 EXECUTABLE = SteinerExact
 
+# Compile all cpp files 
+SOURCES = $(wildcard *.cpp)
+SOURCES+= $(wildcard */*.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
+
+
 %.o: %.cpp
-	g++ -I. $(CFLAGS) -c -o $@ $^
+	$(GCC) -I. $(CFLAGS) -c -o $@ $^
 
 $(EXECUTABLE): $(OBJECTS)
-	g++ $(CFLAGS) -o $@ $^
+	$(GCC) $(CFLAGS) -o $@ $^
 
 
 clean:

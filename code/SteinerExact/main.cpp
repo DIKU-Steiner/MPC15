@@ -24,8 +24,6 @@
 #include "ComponentExperiment.h"
 #include "TestWSConvergence.h"
 
-#define DIMACS
-
 using namespace std;
 
 void printUsage(char* pName);
@@ -38,54 +36,12 @@ int runSmithStar(vector< geomNd::Point > &sites, double upperBound, ArgParser &a
 
 int main(int argc, char** argv)
 {
-    //ComponentExperiment::runWOPruning();
-    //if(true) return 0;
 
-    //bool swapIandK = true;
-    //int N = 20;
-    //int n2 = (int)floor(N/2.0);
-    //int n3 = (int)ceil(N/3.0);
-    //for(int i=n3;i<=n2;i++){
-    //    int ni2 = (int)ceil( (N-i)/2.0 );
-    //    for(int j=ni2;j<=min(i,N-i-1);j++){
-    //        int k=N-i-j;
-    //        if(swapIandK){ int tmp = i; i = k; k = tmp; }
-    //        cout<<i<<" "<<j<<" "<<k<<endl;
-    //        if(swapIandK){ int tmp = i; i = k; k = tmp; }
-    //    }
+    //if(sizeof(uint64_t)<8){
+    //    cerr<<"To speed up lower bound computations this program uses bittricks that requires uint64_t to be a"<<endl;
+    //    cerr<<"64 bit unsigned integer."<<endl;
+    //    return -1;
     //}
-    //if(true) return 0;
-
-    //Topology* t1 = new Topology(0);
-    //Topology* t2 = new Topology(1);
-    //Topology* t3 = new Topology(2);
-    //Topology* t4 = new Topology(3);
-    //vector<Topology*> vec;
-    //vec.push_back(t1);
-    //vec.push_back(t2);
-    //vec.push_back(t3);
-    //vec.push_back(t4);
-    //int c1 = 0;
-    //for(auto it1 = vec.begin(); it1!=vec.end(); it1++){
-    //    int c2 = 0;
-    //    for(auto it2 = vec.begin(); it2!=vec.end(); it2++){
-    //        cout<<c1<<" .. "<<c2<<endl;
-    //        if(it1==it2){
-    //            cout<<(*it1)->siteMask<<" = "<<(*it2)->siteMask<<endl;
-    //            break;
-    //        }
-    //        c2++;
-    //    }
-    //    c1++;
-    //}
-    //if(true) return 0;
-
-
-    if(sizeof(uint64_t)<8){
-        cerr<<"To speed up lower bound computations this program uses bittricks that requires uint64_t to be a"<<endl;
-        cerr<<"64 bit unsigned integer."<<endl;
-        return -1;
-    }
 
     ArgParser argParser(argc, argv);
     argParser.printArgs();
@@ -93,8 +49,6 @@ int main(int argc, char** argv)
         printUsage(argv[0]);
         return -1;
     }
-    //TestCircle::runTest();
-    //return 0;
 
     //Initialize random
     if(argParser.optionExists("-seed")) srand(argParser.getOption_int("-seed"));
@@ -109,30 +63,7 @@ int main(int argc, char** argv)
         IO::readFromRandSphere(D, N, sites);
     }
 
-	//Only relevant with carioca_3_11_01.stp
-	//PointPlacement placement(sites);
-	//placement.points[11][0] = 0.480627;placement.points[11][1] = 0.590529;placement.points[11][2] = 0.646099;
-	//placement.points[12][0] = 0.706996;placement.points[12][1] = 0.636315;placement.points[12][2] = 0.730917;
-	//placement.points[13][0] = 0.465169;placement.points[13][1] = 0.512995;placement.points[13][2] = 0.566719;
-	//placement.points[14][0] = 0.437907;placement.points[14][1] = 0.552696;placement.points[14][2] = 0.43286;
-	//placement.points[15][0] = 0.376758;placement.points[15][1] = 0.740735;placement.points[15][2] = 0.294609;
-	//placement.points[16][0] = 0.475153;placement.points[16][1] = 0.858765;placement.points[16][2] = 0.277051;
-	//placement.points[17][0] = 0.485569;placement.points[17][1] = 0.143766;placement.points[17][2] = 0.655085;
-	//placement.points[18][0] = 0.414695;placement.points[18][1] = 0.635309;placement.points[18][2] = 0.292104;
-	//placement.points[19][0] = 0.832745;placement.points[19][1] = 0.574972;placement.points[19][2] = 0.657554;
-	//placement.adj[0][0] = 13; placement.adj[0][1] = 12; placement.adj[0][2] = 2 ;
-	//placement.adj[1][0] = 19; placement.adj[1][1] = 11; placement.adj[1][2] = 3 ;
-	//placement.adj[2][0] = 17; placement.adj[2][1] = 11; placement.adj[2][2] = 14;
-	//placement.adj[3][0] = 18; placement.adj[3][1] = 13; placement.adj[3][2] = 5 ;
-	//placement.adj[4][0] = 4 ; placement.adj[4][1] = 18; placement.adj[4][2] = 16;
-	//placement.adj[5][0] = 6 ; placement.adj[5][1] = 15; placement.adj[5][2] = 7 ;
-	//placement.adj[6][0] = 0 ; placement.adj[6][1] = 13; placement.adj[6][2] = 8 ;
-	//placement.adj[7][0] = 14; placement.adj[7][1] = 15; placement.adj[7][2] = 9;
-	//placement.adj[8][0] = 1 ; placement.adj[8][1] = 12; placement.adj[8][2] = 10;
-	//placement.steinerPoints = 9;
-	//cout<<placement.lengthDebug()<<endl;
-	//if(true)return 0;
-
+	//Compute upper bound
     double UB;
     cout<<"Using upper bound from ";
     if(!argParser.optionExists("-upperBound") || (argParser.optionExists("-upperBound") && argParser.getOption("-upperBound")==string("Heuristic")) ){
@@ -149,17 +80,7 @@ int main(int argc, char** argv)
     }
     cout<<": "<<UB<<endl;
 
-    //PointPlacement placement = SpanningTreeRelax::topologyFromMST(sites);
-    //cout<<placement<<endl;
-    //double heu = placement.getLength(0.0001);
-    //double mst = UB;
-    //cout<<heu<<endl;
-    //cout<<mst<<endl;
-    //cout<<(heu/mst)<<endl;
-    //return 0;
-
-
-    //return runSmithStar(sites, UB, argParser);
+	//Start correct Steiner method
     if(argParser.optionExists("-method") && argParser.getOption("-method")=="SmithStar"){
         return runSmithStar(sites, UB, argParser);
     }else{
@@ -194,7 +115,6 @@ int runBranch(vector< geomNd::Point > &sites, double upperBound, ArgParser &argP
     clock_t start = clock();
     Branch ggs(sites, upperBound, argParser);
     clock_t end = clock();
-    //ggs.printTopologies();
 
 	ggs.printLBEvals();
 
