@@ -139,5 +139,5 @@ which specifies the best found topology and its length.
 
 ## Code overview
 
-The main parts of the Branch algorithm are in `Branch/Branch.cpp`. The main parts of Smith\* are in `SmithStar/SmithStar.cpp`. The iterative procedure to obtain relative minimal trees is implemented in `PointPlacement.{h,cpp}` and is mostly taken from the Smith algorithm. 
+The main parts of the Branch algorithm are in `Branch/Branch.cpp`. The main parts of Smith\* are in `SmithStar/SmithStar.cpp`. The iterative procedure to obtain relative minimal trees is implemented in `PointPlacement.cpp` and is mostly taken from the Smith algorithm. 
 
